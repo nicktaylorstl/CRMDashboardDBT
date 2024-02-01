@@ -1,6 +1,6 @@
 SELECT
   JSON_EXTRACT_SCALAR(upstash, '$.event') AS ievent,
-  JSON_EXTRACT_SCALAR(payload, '$.id') AS payload_id,
+  JSON_EXTRACT_SCALAR(payload, '$.id') AS opportunity_id,
   JSON_EXTRACT_SCALAR(payload, '$.owner.id') AS owner_id,
   JSON_EXTRACT_SCALAR(payload, '$.owner.deleted') AS owner_is_deleted,
   JSON_EXTRACT_SCALAR(payload, '$.owner.username') AS owner_username,
