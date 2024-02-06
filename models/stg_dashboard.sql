@@ -1,5 +1,7 @@
+with final as(
 SELECT
-  JSON_EXTRACT_SCALAR(upstash, '$.event') AS ievent,
+  timestamp,
+  JSON_EXTRACT_SCALAR(value, '$.event') AS ievent,
   JSON_EXTRACT_SCALAR(payload, '$.id') AS opportunity_id,
   JSON_EXTRACT_SCALAR(payload, '$.owner.id') AS owner_id,
   JSON_EXTRACT_SCALAR(payload, '$.owner.deleted') AS owner_is_deleted,
@@ -10,7 +12,7 @@ SELECT
   JSON_EXTRACT_SCALAR(payload, '$.lastStageChangedAt') AS lastStageChangedAt,
   JSON_EXTRACT_SCALAR(payload, '$.party.id') AS party_id,
   JSON_EXTRACT_SCALAR(payload, '$.party.type') AS party_type,
-  JSON_EXTRACT_SCALAR(payload, '$.party.name') AS party_name,
+  JSON_EXTRACT_SCALAR(payload, '$.party.name') AS client,
   JSON_EXTRACT_SCALAR(payload, '$.party.pictureURL') AS party_picture_url,
   JSON_EXTRACT_SCALAR(payload, '$.lostReason') AS lost_reason,
   JSON_EXTRACT_SCALAR(payload, '$.createdAt') AS created_at,
@@ -30,5 +32,7 @@ SELECT
   JSON_EXTRACT_SCALAR(payload, '$.description') AS description,
   JSON_EXTRACT_SCALAR(payload, '$.lastContactedAt') AS last_contacted_at
 FROM
-  `crmdashboardmlb.fromupstash.opportunities`,
-  UNNEST(JSON_EXTRACT_ARRAY(upstash, '$.payload')) AS payload
+  `crmdashboardmlb.fromupstash.dashboard`,
+  UNNEST(JSON_EXTRACT_ARRAY(value, '$.payload')) AS payload)
+
+  select * from final
