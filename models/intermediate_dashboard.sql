@@ -3,7 +3,7 @@ SELECT
     opportunity_id,
     opportunity_name,
     value_amount,
-    party_name as client,
+    client,
     current_milestone,
 
 
